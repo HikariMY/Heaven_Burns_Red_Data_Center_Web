@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HBR Web Template</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" aria-label="แถบเมนูด้านข้าง">
+        <div class="sidebar-header">HBR</div>
+        <nav class="side-list" aria-label="เมนูย่อย">
+            <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
+            <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
+            <a class="side-item" href="#"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+            <a class="side-item" href="#"><span class="ico">🏅</span><span class="label">ประดับ</span></a>
+            <hr style="margin:8px 0; border:0; border-top:1px solid rgba(255,255,255,0.3)">
+            <a class="side-item" href="admin_login.php" target="_blank">
+                <span class="ico">⚙️</span><span class="label">Dashboard</span>
+            </a>
+        </nav>
+
+    </aside>
+
+    <!-- Scrim สำหรับปิดเมนูบนจอเล็ก -->
+    <div id="scrim" class="scrim" aria-hidden="true"></div>
+
+    <!-- Topbar -->
+    <header class="topbar">
+        <button id="btnOpen" class="hamburger" aria-label="เปิดเมนู" aria-controls="sidebar" aria-expanded="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+            </svg>
+        </button>
+
+        <div class="brand-inline" aria-label="แบรนด์">HBR</div>
+
+        <nav class="main-nav">
+            <a href="#home" class="nav-link active">HOME</a>
+        </nav>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/skyrim21130" target="_blank" aria-label="Facebook">
+                <img src="img/fb.png" alt="Facebook">
+            </a>
+            <a href="https://youtube.com/@hikarilmayav2?si=SJnSDMQdtgywF0jz" target="_blank" aria-label="YouTube">
+                <img src="img/ty.png" alt="YouTube">
+            </a>
+            <a href="https://x.com/HikariLMayV2" target="_blank" aria-label="X">
+                <img src="img/x.png" alt="X">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main" id="content">
+        <!-- เดิม: <section id="home" class="hero hero-single"> -->
+        <section id="home" class="hero hero-left">
+            <img class="hero-logo" src="img/Heaven_Burns_Red_Glow_logo.png" alt="Logo" />
+            <h1 class="hero-title">HEAVEN BURNS RED</h1>
+        </section>
+
+
+
+        <div class="container">
+            <section class="banner banner-full">
+                <h1>ยินดีต้อนรับสู่</h1>
+                <p>Heaven Burns Red Data Center</p>
+                <img src="img/web_banner.jpg" alt="Web Banner" class="banner-img">
+            </section>
+
+
+            <section class="banner slider" aria-roledescription="carousel" aria-label="Event Banner">
+                <h2>อีเวน และ กิจกรรมที่กำลังดำเนินอยู่...</h2>
+                <div id="track" class="track"></div>
+                <div class="dots" id="dots"></div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Seraph – Tier List</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tier-wrap {
+            max-width: 1100px;
+            margin: 16px auto;
+            padding: 8px 12px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .tab {
+            padding: 8px 14px;
+            border: 1px solid #f1b8c5;
+            background: #fff;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800
+        }
+
+        .tab.active {
+            background: #ffd8e2
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin: 12px 0 16px
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .chip {
+            padding: 6px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            background: #fff;
+            cursor: pointer
+        }
+
+        .chip.is-active {
+            background: #111827;
+            color: #fff;
+            border-color: #111827
+        }
+
+        .chip .icon-wrap {
+            margin-right: 4px
+        }
+
+        .section {
+            background: #ffe3ec;
+            border: 1px solid #f6c1ce;
+            border-radius: 14px;
+            padding: 10px 10px 14px;
+            margin: 14px 0
+        }
+
+        .section h3 {
+            margin: 6px 10px 10px;
+            font-weight: 900
+        }
+
+        .mini-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 10px;
+            padding: 0 8px
+        }
+
+        @media (max-width:960px) {
+            .mini-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        @media (max-width:640px) {
+            .mini-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        .mini {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: var(--shadow, 0 6px 20px rgba(0, 0, 0, .06));
+            cursor: pointer
+        }
+
+        .mini .img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            display: block
+        }
+
+        .mini .rar {
+            position: absolute;
+            left: 6px;
+            top: 6px;
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .25))
+        }
+
+        .mini .badges {
+            position: absolute;
+            left: 6px;
+            bottom: 6px;
+            display: flex;
+            gap: 4px
+        }
+
+        .mini .badges .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .85);
+            border: 1px solid #e5e7eb
+        }
+
+        .bar {
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .bar .label {
+            font-weight: 800
+        }
+    </style>
+</head>
+
+<body>
+    <aside id="sidebar" class="sidebar" aria-label="แถบเมนูด้านข้าง">
+        <div class="sidebar-header">HBR</div>
+        <nav class="side-list" aria-label="เมนูย่อย">
+            <a class="side-item" href="index.html"><span class="ico">🏠</span><span class="label">Home</span></a>
+            <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
+            <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier
+                    list</span></a>
+            <a class="side-item" href="#"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+            <a class="side-item" href="#"><span class="ico">🏅</span><span class="label">ประดับ</span></a>
+            <hr style="margin:8px 0; border:0; border-top:1px solid rgba(255,255,255,0.3)">
+            <a class="side-item" href="admin_login.php" target="_blank">
+                <span class="ico">⚙️</span><span class="label">Dashboard</span>
+            </a>
+        </nav>
+
+    </aside>
+    <main class="tier-wrap">
+        <div class="tabs" id="catTabs">
+            <button class="tab active" data-cat="">รวมทั้งหมด</button>
+            <button class="tab" data-cat="attack">โจมตี</button>
+            <button class="tab" data-cat="buff">บัฟ</button>
+            <button class="tab" data-cat="debuff">ดีบัฟ</button>
+            <button class="tab" data-cat="support">ซัพพอร์ต</button>
+        </div>
+
+        <div class="filters">
+            <div class="bar">
+                <span class="label">สาย</span>
+                <div id="styleChips" class="filter-row">
+                    <button class="chip is-active" data-style=""><span>ทั้งหมด</span></button>
+                    <button class="chip" data-style="ฟัน"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/icon1.png"></span>ฟัน</button>
+                    <button class="chip" data-style="ยิง"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/icon2.png"></span>ยิง</button>
+                    <button class="chip" data-style="กระแทก"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/icon3.png"></span>กระแทก</button>
+                </div>
+            </div>
+            <div class="bar">
+                <span class="label">ธาตุ</span>
+                <div id="elemChips" class="filter-row">
+                    <button class="chip is-active" data-element="">ทั้งหมด</button>
+                    <button class="chip" data-element="ไฟ"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/em1.png"></span>ไฟ</button>
+                    <button class="chip" data-element="สายฟ้า"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/em2.png"></span>สายฟ้า</button>
+                    <button class="chip" data-element="น้ำแข็ง"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/em3.png"></span>น้ำแข็ง</button>
+                    <button class="chip" data-element="แสง"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/em5.png"></span>แสง</button>
+                    <button class="chip" data-element="มืด"><span class="icon-wrap"><img class="icon-img"
+                                src="icon/em4.png"></span>มืด</button>
+                </div>
+            </div>
+            <div class="bar">
+                <span class="label">วิธีได้มา</span>
+                <div id="obtainChips" class="filter-row">
+                    <button class="chip is-active" data-obtain="">ทั้งหมด</button>
+                    <button class="chip" data-obtain="normal">ถาวร</button>
+                    <button class="chip" data-obtain="limited">จำกัด</button>
+                    <button class="chip" data-obtain="collab">คอลแลป</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tierHost"></div>
+    </main>
+    <script src="tier_list.js"></script>
+</body>
+
+</html>
