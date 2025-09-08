@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION['is_admin'])) {
-  header('Location: <admin>admin_login.php');
+  header('Location: admin_login.php');
   exit;
 }
 if (empty($_SESSION['csrf'])) {

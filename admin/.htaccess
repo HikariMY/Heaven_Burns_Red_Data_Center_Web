@@ -1,3 +1,0 @@
-Options -Indexes
-# กัน search engine เก็บหน้า admin
-Header set X-Robots-Tag "noindex, nofollow, noarchive"
