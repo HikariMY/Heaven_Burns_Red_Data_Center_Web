@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (empty($_SESSION['is_admin'])) { header('Location: admin_login.php'); exit; }
+if (empty($_SESSION['is_admin'])) { header('Location: <admin>admin_login.php'); exit; }
 
 $pdo = new PDO('mysql:host=localhost;dbname=hbr_web_db;charset=utf8mb4','root','');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

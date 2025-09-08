@@ -20,7 +20,7 @@ if ($IP_ALLOW && !in_array($_SERVER['REMOTE_ADDR'] ?? '', $IP_ALLOW, true)) {
 }
 
 // ถ้าเข้าสู่ระบบอยู่แล้ว ส่งไปหน้าแอดมิน
-if (!empty($_SESSION['is_admin'])) { header('Location: admin_seraphs.php'); exit; }
+if (!empty($_SESSION['is_admin'])) { header('Location: <admin>admin_seraphs.php'); exit; }
 
 // CSRF token
 if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));

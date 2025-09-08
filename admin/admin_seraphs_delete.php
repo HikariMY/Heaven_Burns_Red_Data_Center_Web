@@ -4,7 +4,7 @@ session_start();
 
 // ต้องเป็นแอดมินเท่านั้น
 if (empty($_SESSION['is_admin'])) {
-  header('Location: admin_login.php');
+  header('Location: <admin>admin_login.php');
   exit;
 }
 
