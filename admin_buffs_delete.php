@@ -2,6 +2,7 @@
 // admin_buffs_delete.php
 require_once 'auth_guard.php';
 require_once 'db.php';
+$pdo = (new DB())->connect(); // << ต้องมีบรรทัดนี้
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 if ($id > 0) {
