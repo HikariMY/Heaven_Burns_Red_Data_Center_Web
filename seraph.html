@@ -1,27 +1,38 @@
 <!doctype html>
 <html lang="th">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Seraph</title>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui_patch.css">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Utilities (CSS ปกติ) -->
+  <style>
+    .chip-base{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .75rem;border:1px solid #e5e7eb;border-radius:9999px;background:#fff;font-weight:800;font-size:.95rem}
+    .chip-active{border-color:#e63950;box-shadow:0 3px 10px rgba(230,57,80,.12)}
+  </style>
 </head>
 
 <body>
-  <aside id="sidebar" class="sidebar" aria-label="แถบเมนูด้านข้าง">
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">HBR</div>
-    <nav class="side-list" aria-label="เมนูย่อย">
+    <nav class="side-list">
       <a class="side-item" href="index.html"><span class="ico">🏠</span><span class="label">Home</span></a>
+      <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
       <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
-      <a class="side-item" href="#"><span class="ico">👥</span><span class="label">Team Comp</span></a>
-      <a class="side-item" href="#"><span class="ico">🏅</span><span class="label">ประดับ</span></a>
-      <hr style="margin:8px 0; border:0; border-top:1px solid rgba(255,255,255,0.3)">
-      <a class="side-item" href="admin_login.php" target="_blank">
-        <span class="ico">⚙️</span><span class="label">Dashboard</span>
-      </a>
+      <a class="side-item" href="team_comp.html"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+      <a class="side-item" href="accessory.html"><span class="ico">💍</span><span class="label">ประดับ</span></a>
+      <a class="side-item" href="buffs.html"><span class="ico">✨</span><span class="label">บัพ/ดีบัพ</span></a>
+      <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.3)">
+      <a class="side-item" href="admin_login.php" target="_blank"><span class="ico">⚙️</span><span class="label">Dashboard</span></a>
     </nav>
   </aside>
+
   <main class="main">
     <section class="page-head">
       <h1 class="page-title">Seraph</h1>
@@ -42,57 +53,47 @@
             <option>RIDER</option>
           </select>
         </div>
+
         <div class="style-filter" id="rarityFilter">
-          <button class="style-btn is-active" data-rarity="">
+          <button class="style-btn is-active chip-base chip-active" data-rarity="">
             <span>เรต: ทั้งหมด</span>
           </button>
-          <button class="style-btn" data-rarity="SSR">
+          <button class="style-btn chip-base" data-rarity="SSR">
             <span class="icon-wrap"><img class="icon-img" src="icon/SSR.png" alt="SSR"></span><span>SSR</span>
           </button>
-          <button class="style-btn" data-rarity="SS">
+          <button class="style-btn chip-base" data-rarity="SS">
             <span class="icon-wrap"><img class="icon-img" src="icon/SS.png" alt="SS"></span><span>SS</span>
           </button>
-          <button class="style-btn" data-rarity="S">
+          <button class="style-btn chip-base" data-rarity="S">
             <span class="icon-wrap"><img class="icon-img" src="icon/S.png" alt="S"></span><span>S</span>
           </button>
-          <button class="style-btn" data-rarity="A">
+          <button class="style-btn chip-base" data-rarity="A">
             <span class="icon-wrap"><img class="icon-img" src="icon/A.png" alt="A"></span><span>A</span>
           </button>
         </div>
 
-
         <div class="style-filter" id="styleFilter">
-          <button class="style-btn is-active" data-style=""><span>สาย: ทั้งหมด</span></button>
-          <button class="style-btn" data-style="ฟัน"><span class="icon-wrap"><img class="icon-img" src="icon/icon1.png"
-                alt=""></span><span>ฟัน</span></button>
-          <button class="style-btn" data-style="ยิง"><span class="icon-wrap"><img class="icon-img" src="icon/icon2.png"
-                alt=""></span><span>ยิง</span></button>
-          <button class="style-btn" data-style="กระแทก"><span class="icon-wrap"><img class="icon-img"
-                src="icon/icon3.png" alt=""></span><span>กระแทก</span></button>
+          <button class="style-btn is-active chip-base chip-active" data-style=""><span>สาย: ทั้งหมด</span></button>
+          <button class="style-btn chip-base" data-style="ฟัน"><span class="icon-wrap"><img class="icon-img" src="icon/icon1.png" alt=""></span><span>ฟัน</span></button>
+          <button class="style-btn chip-base" data-style="ยิง"><span class="icon-wrap"><img class="icon-img" src="icon/icon2.png" alt=""></span><span>ยิง</span></button>
+          <button class="style-btn chip-base" data-style="กระแทก"><span class="icon-wrap"><img class="icon-img" src="icon/icon3.png" alt=""></span><span>กระแทก</span></button>
         </div>
 
         <div class="style-filter" id="elemFilter">
-          <button class="style-btn is-active" data-element=""><span>ธาตุ: ทั้งหมด</span></button>
-          <button class="style-btn" data-element="ไฟ"><span class="icon-wrap"><img class="icon-img" src="icon/em1.png"
-                alt=""></span><span>ไฟ</span></button>
-          <button class="style-btn" data-element="สายฟ้า"><span class="icon-wrap"><img class="icon-img"
-                src="icon/em2.png" alt=""></span><span>สายฟ้า</span></button>
-          <button class="style-btn" data-element="น้ำแข็ง"><span class="icon-wrap"><img class="icon-img"
-                src="icon/em3.png" alt=""></span><span>น้ำแข็ง</span></button>
-          <button class="style-btn" data-element="มืด"><span class="icon-wrap"><img class="icon-img" src="icon/em4.png"
-                alt=""></span><span>มืด</span></button>
-          <button class="style-btn" data-element="แสง"><span class="icon-wrap"><img class="icon-img" src="icon/em5.png"
-                alt=""></span><span>แสง</span></button>
+          <button class="style-btn is-active chip-base chip-active" data-element=""><span>ธาตุ: ทั้งหมด</span></button>
+          <button class="style-btn chip-base" data-element="ไฟ"><span class="icon-wrap"><img class="icon-img" src="icon/em1.png" alt=""></span><span>ไฟ</span></button>
+          <button class="style-btn chip-base" data-element="สายฟ้า"><span class="icon-wrap"><img class="icon-img" src="icon/em2.png" alt=""></span><span>สายฟ้า</span></button>
+          <button class="style-btn chip-base" data-element="น้ำแข็ง"><span class="icon-wrap"><img class="icon-img" src="icon/em3.png" alt=""></span><span>น้ำแข็ง</span></button>
+          <button class="style-btn chip-base" data-element="มืด"><span class="icon-wrap"><img class="icon-img" src="icon/em4.png" alt=""></span><span>มืด</span></button>
+          <button class="style-btn chip-base" data-element="แสง"><span class="icon-wrap"><img class="icon-img" src="icon/em5.png" alt=""></span><span>แสง</span></button>
         </div>
 
-        <!-- วิธีได้มา -->
         <div class="style-filter" id="obtainFilter">
-          <button class="style-btn is-active" data-obtain=""><span>วิธีได้มา: ทั้งหมด</span></button>
-          <button class="style-btn" data-obtain="normal"><span>ถาวร</span></button>
-          <button class="style-btn" data-obtain="limited"><span>ลิมิต</span></button>
-          <button class="style-btn" data-obtain="collab"><span>คอลแลป</span></button>
+          <button class="style-btn is-active chip-base chip-active" data-obtain=""><span>วิธีได้มา: ทั้งหมด</span></button>
+          <button class="style-btn chip-base" data-obtain="normal"><span>ถาวร</span></button>
+          <button class="style-btn chip-base" data-obtain="limited"><span>ลิมิต</span></button>
+          <button class="style-btn chip-base" data-obtain="collab"><span>คอลแลป</span></button>
         </div>
-
 
         <div class="searchbar"><input id="q" type="search" placeholder="ค้นหาชื่อ / แท็ก..."></div>
       </div>
@@ -106,5 +107,4 @@
 
   <script src="seraph.js"></script>
 </body>
-
 </html>

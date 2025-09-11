@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --sidebar-w: 208px;
   --topbar-h: 72px;
@@ -765,6 +767,59 @@ body {
   position: relative;
   z-index: 2;
 }
+
+.comp-card.is-selected{
+  border-color: #ff5a7a !important;
+  box-shadow: 0 6px 18px rgba(255,90,122,.18);
+  position: relative;
+}
+.comp-card.is-selected::after{
+  content: "กำลังดู";
+  position: absolute;
+  top: 8px; right: 8px;
+  font-size: 12px;
+  background: #ff5a7a; color: #fff;
+  padding: 2px 8px; border-radius: 999px;
+}
+
+.card.is-selected{
+  border-color:#ff5a7a !important;
+  box-shadow:0 6px 18px rgba(255,90,122,.18);
+  position:relative;
+}
+.card.is-selected::after{
+  content:"กำลังดู";
+  position:absolute; top:8px; right:8px;
+  font-size:12px; background:#ff5a7a; color:#fff;
+  padding:2px 8px; border-radius:999px;
+}
+
+/* ใส่ท้ายไฟล์ ui_patch.css หรือ style.css */
+
+/* ตัดวงกลมพื้นหลังออกทุก badge ในส่วน accessories */
+.badges .badge{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* ขยายเฉพาะไอคอนประเภท (ตัวหลัง) ให้ใหญ่ขึ้นจริง */
+.badges .badge.type{   /* ใช้ได้กับ accessory.js เวอร์ชันล่าสุดที่ผมใส่ class .type ไว้ */
+  width: 44px;        /* ปรับตามที่ต้องการ */
+  height: 44px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+
+/* ขนาดธาตุ (ตัวหน้า) ตามเดิม */
+.badges .badge.elem{
+  width: 32px;
+  height: 32px;
+}
+
+
 
 /* ===== Responsive ===== */
 @media (max-width: 1024px) {

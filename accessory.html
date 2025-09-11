@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ประดับต่างๆ</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui_patch.css">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- เก็บสไตล์ดั้งเดิมของไฟล์นี้ไว้อยู่ครบ -->
+  <style>
+    .wrap{max-width:1100px;margin:16px auto;padding:0 16px}
+    .filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+    .chip{padding:8px 12px;border:1.5px solid var(--line);border-radius:999px;background:#fff;font-weight:800;cursor:pointer}
+    .chip.active{border-color:#e63950;box-shadow:0 3px 10px rgba(230,57,80,.12)}
+    .stars{display:flex;gap:2px;align-items:center}
+    .star{font-size:18px;opacity:.35}
+    .star.on{opacity:1}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    @media(max-width:1100px){.grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+
+    .card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:10px;border:2px solid transparent;cursor:pointer}
+    .imgbox{position:relative;border-radius:12px;overflow:hidden;border:1px solid #eee}
+    .imgbox img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}
+    .badge-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    .badges{display:flex;gap:6px}
+    .badge{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.25))}
+    .name{font-weight:900;margin-top:6px}
+
+    .detail{margin:18px 0;background:#fff;border:1px solid #eee;border-radius:14px;padding:10px}
+    .detail h3{margin:0 0 8px}
+    .drow{display:grid;grid-template-columns:56px 1fr;gap:10px;padding:8px 0;border-top:1px solid #f1f5f9}
+    .drow:first-child{border-top:0}
+    .dicon{width:56px;height:56px;border-radius:10px;overflow:hidden;border:1px solid #eee}
+    .dicon img{width:100%;height:100%;object-fit:cover}
+    .muted{opacity:.7}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
+    .search{flex:1;min-width:200px}
+    .search input{width:100%;padding:8px 10px;border:1.5px solid #e5e7eb;border-radius:10px}
+  </style>
+</head>
+
+<body>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">HBR</div>
+    <nav class="side-list">
+      <a class="side-item" href="index.html"><span class="ico">🏠</span><span class="label">Home</span></a>
+      <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
+      <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
+      <a class="side-item" href="team_comp.html"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+      <a class="side-item" href="accessory.html"><span class="ico">💍</span><span class="label">ประดับ</span></a>
+      <a class="side-item" href="buffs.html"><span class="ico">✨</span><span class="label">บัพ/ดีบัพ</span></a>
+
+      <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.3)">
+      <a class="side-item" href="admin_login.php" target="_blank"><span class="ico">⚙️</span><span class="label">Dashboard</span></a>
+    </nav>
+  </aside>
+
+  <main class="wrap">
+    <h1 class="page-title">ประดับต่างๆ</h1>
+
+    <div class="toolbar">
+      <div class="filters" id="elemFilters">
+        <button class="chip active" data-el="">ทั้งหมด</button>
+        <button class="chip" data-el="ไฟ">ไฟ</button>
+        <button class="chip" data-el="สายฟ้า">สายฟ้า</button>
+        <button class="chip" data-el="น้ำแข็ง">น้ำแข็ง</button>
+        <button class="chip" data-el="แสง">แสง</button>
+        <button class="chip" data-el="มืด">มืด</button>
+      </div>
+
+      <div class="filters" id="typeFilters"><!-- filled by JS --></div>
+
+      <div class="filters" id="starFilters">
+        <span class="chip" data-stars="1">⭐</span>
+        <span class="chip" data-stars="2">⭐⭐</span>
+        <span class="chip" data-stars="3">⭐⭐⭐</span>
+        <span class="chip" data-stars="4">⭐⭐⭐⭐</span>
+        <span class="chip" data-stars="5">⭐⭐⭐⭐⭐</span>
+        <span class="chip" data-stars="6">⭐⭐⭐⭐⭐⭐</span>
+      </div>
+
+      <div class="search">
+        <input id="q" type="search" placeholder="ค้นหาชื่อประดับ...">
+      </div>
+    </div>
+
+    <section id="grid" class="grid"></section>
+    <section id="detail"></section>
+  </main>
+
+  <script src="accessory.js"></script>
+</body>
+</html>

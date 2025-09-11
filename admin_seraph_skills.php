@@ -1,15 +1,8 @@
 <?php
-session_start();
-if (empty($_SESSION['is_admin'])) {
-  header('Location: admin_login.php');
-  exit;
-}
-$pdo = new PDO(
-  'mysql:host=localhost;dbname=hbr_web_db;charset=utf8mb4',
-  'root',
-  '',
-  [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-);
+require_once 'auth_guard.php';
+require_once 'db.php';
+$pdo = (new DB())->connect();
+
 if (empty($_SESSION['csrf'])) $_SESSION['csrf'] = bin2hex(random_bytes(32));
 $msg = '';
 
@@ -50,16 +43,22 @@ if ($seraph_id > 0) {
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Admin — Seraph Skills</title>
   <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin_theme.css">
 </head>
 
 <body>
   <aside class="admin-sidebar">
-    <div class="side-head">Admin</div>
-    <nav class="side-list">
-      <a class="side-item" href="admin_seraphs.php"><span class="ico">⚔️</span><span class="label">จัดการ Seraphs</span></a>
-      <a class="side-item" href="admin_seraph_skills.php"><span class="ico">📚</span><span class="label">จัดการสกิล</span></a>
-      <a class="side-item" href="logout.php"><span class="ico">🚪</span><span class="label">ออกจากระบบ</span></a>
-    </nav>
+    <div class="side-head">HBR Admin</div>
+    <div class="side-list">
+      <a class="side-item" href="admin_seraphs.php"><span class="ico">👤</span><span class="label">Seraphs</span></a>
+      <a class="side-item" href="admin_seraph_skills.php"><span class="ico">✨</span><span class="label">Skills</span></a>
+      <a class="side-item" href="admin_events.php"><span class="ico">🗓️</span><span class="label">Events</span></a>
+      <a class="side-item" href="admin_team_comps.php"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+      <a class="side-item" href="admin_accessories.php"><span class="ico">💍</span><span class="label">Accessories</span></a>
+      <a class="side-item" href="admin_accessory_types.php"><span class="ico">🗂️</span><span class="label">Accessory Types</span></a>
+
+      <a class="side-item" href="logout.php"><span class="ico">⏻</span><span class="label">Logout</span></a>
+    </div>
   </aside>
 
   <main class="admin-main">

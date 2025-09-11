@@ -1,0 +1,149 @@
+/* admin_theme.css — Light Clean Theme (ทับ admin.css เดิม) */
+@import "tailwindcss";
+
+:root {
+  --brand: #ff5a7a;
+  --brand-dark: #e54868;
+  --line: #e2e8f0;
+  --card-bg: #ffffff;
+  --muted: #64748b;
+  --shadow: 0 6px 18px rgba(17,24,39,.08);
+  --shadow-2: 0 12px 28px rgba(17,24,39,.12);
+  --radius: 14px;
+}
+
+body {
+  font-family: "Segoe UI", "Noto Sans Thai", sans-serif;
+  background: #f7f8fb;
+  color: #1e293b;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* main */
+.admin-main {
+  padding: 24px;
+  background: #f7f8fb;
+}
+.admin-main h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 800;
+  color: #111827;
+}
+
+/* card / form */
+form, .admin-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0 6px;
+}
+input[type=text],
+input[type=file],
+select,
+textarea {
+  width: 100%;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  outline: none;
+  transition: .16s ease;
+  font-family: inherit;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px rgba(255,90,122,.2);
+}
+
+/* table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+th {
+  background: #f1f5f9;
+  font-weight: 700;
+}
+tr:hover td {
+  background: #fafafa;
+}
+
+/* ปุ่ม */
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: .16s ease;
+}
+button:hover, .btn:hover { transform: translateY(-1px); }
+
+/* สีปุ่ม */
+.btn-primary, button[type=submit] {
+  background: var(--brand);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--brand-dark); }
+
+.btn-edit {
+  background: #3b82f6;
+  color:#fff;
+}
+.btn-edit:hover { background:#2563eb; }
+
+.btn-del {
+  background:#ef4444;
+  color:#fff;
+}
+.btn-del:hover { background:#dc2626; }
+
+/* ข้อความสถานะ */
+.msg {
+  padding: 10px 14px;
+  background: #ecfdf5;
+  border:1px solid #6ee7b7;
+  color:#065f46;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+
+/* FIX ปุ่มไม่เห็นตัวหนังสือ */
+.btn,
+.btn * {
+  color:#111 !important;          /* บังคับให้เห็นตัวหนังสือ */
+}
+.btn-danger,
+.btn-danger *{
+  color:#b91c1c !important;       /* ปุ่มลบให้เป็นแดง */
+}
+.btn:disabled,
+.btn[disabled]{
+  color:#9ca3af !important;
+}
+
+/* กันธีมอื่นมาเปลี่ยนสีข้อความในตาราง/ฟิลเตอร์ */
+.table, .table * { color: inherit; }
+select, input, textarea { color:#111; }
+

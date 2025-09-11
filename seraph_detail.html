@@ -1,156 +1,55 @@
 <!doctype html>
 <html lang="th">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Seraph – Detail</title>
+
+  <!-- โหลดสไตล์เดิมให้ครบ -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui_patch.css">
+
+  <!-- Tailwind CDN (ไม่ใช้ @apply/@layer) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- เก็บสไตล์ดั้งเดิมของไฟล์นี้ไว้อยู่ครบ -->
   <style>
-    .detail {
-      max-width: 1080px;
-      margin: 16px auto;
-      padding: 16px
-    }
-
-    .detail-card {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 18px;
-      background: rgba(255, 255, 255, .85);
-      border: 2px solid var(--line);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 16px
-    }
-
-    .poster {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden
-    }
-
-    .poster img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: cover
-    }
-
-    .poster .rarity {
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .25))
-    }
-
-    .pill-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      align-items: center;
-      flex-wrap: wrap
-    }
-
-    .pill-row .badge {
-      font-size: 12px
-    }
-
-    .name {
-      margin: 0 0 6px;
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: .02em
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-      margin-top: 8px
-    }
-
-    .stat {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-weight: 700
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      margin: 16px 0 8px
-    }
-
-    .tab-btn {
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid #e5e7eb;
-      background: #eee;
-      font-weight: 800;
-      cursor: pointer
-    }
-
-    .tab-btn.active {
-      background: #e63950;
-      color: #fff;
-      border-color: #e63950
-    }
-
-    .tab {
-      display: none;
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 12px
-    }
-
-    .tab.active {
-      display: block
-    }
-
-    .skill {
-      background: #f9fafb;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 10px;
-      margin: 8px 0
-    }
-
-    .skill .title {
-      font-weight: 800;
-      margin-bottom: 4px
-    }
-
-    @media (max-width:720px) {
-      .detail-card {
-        grid-template-columns: 1fr
-      }
-    }
+    .detail { max-width: 1080px; margin: 16px auto; padding: 16px }
+    .detail-card { display: grid; grid-template-columns: 280px 1fr; gap: 18px; background: rgba(255, 255, 255, .85); border: 2px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 16px }
+    .poster { position: relative; border-radius: 12px; overflow: hidden }
+    .poster img { display: block; width: 100%; height: auto; object-fit: cover }
+    .poster .rarity { position: absolute; left: 8px; top: 8px; width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, .25)) }
+    .pill-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; flex-wrap: wrap }
+    .pill-row .badge { font-size: 12px }
+    .name { margin: 0 0 6px; font-size: 28px; font-weight: 900; letter-spacing: .02em }
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 8px }
+    .stat { background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 6px 10px; font-weight: 700 }
+    .tabs { display: flex; gap: 8px; margin: 16px 0 8px }
+    .tab-btn { padding: 10px 14px; border-radius: 10px; border: 1px solid #e5e7eb; background: #eee; font-weight: 800; cursor: pointer }
+    .tab-btn.active { background: #e63950; color: #fff; border-color: #e63950 }
+    .tab { display: none; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 12px }
+    .tab.active { display: block }
+    .skill { background: #f9fafb; border: 1px solid #eee; border-radius: 10px; padding: 10px; margin: 8px 0 }
+    .skill .title { font-weight: 800; margin-bottom: 4px }
+    @media (max-width:720px){ .detail-card { grid-template-columns: 1fr } }
   </style>
 </head>
 
 <body>
-  <aside id="sidebar" class="sidebar" aria-label="แถบเมนูด้านข้าง">
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-header">HBR</div>
-    <nav class="side-list" aria-label="เมนูย่อย">
+    <nav class="side-list">
       <a class="side-item" href="index.html"><span class="ico">🏠</span><span class="label">Home</span></a>
       <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
       <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
-      <a class="side-item" href="#"><span class="ico">👥</span><span class="label">Team Comp</span></a>
-      <a class="side-item" href="#"><span class="ico">🏅</span><span class="label">ประดับ</span></a>
-      <hr style="margin:8px 0; border:0; border-top:1px solid rgba(255,255,255,0.3)">
-      <a class="side-item" href="admin_login.php" target="_blank">
-        <span class="ico">⚙️</span><span class="label">Dashboard</span>
-      </a>
+      <a class="side-item" href="team_comp.html"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+      <a class="side-item" href="accessory.html"><span class="ico">💍</span><span class="label">ประดับ</span></a>
+      <a class="side-item" href="buffs.html"><span class="ico">✨</span><span class="label">บัพ/ดีบัพ</span></a>
+      <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.3)">
+      <a class="side-item" href="admin_login.php" target="_blank"><span class="ico">⚙️</span><span class="label">Dashboard</span></a>
     </nav>
-
   </aside>
+
   <main class="detail">
     <div class="detail-card">
       <div>
@@ -180,7 +79,7 @@
       </div>
     </div>
   </main>
+
   <script src="seraph_detail.js"></script>
 </body>
-
 </html>

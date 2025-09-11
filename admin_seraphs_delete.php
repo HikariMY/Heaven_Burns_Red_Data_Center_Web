@@ -3,10 +3,7 @@
 session_start();
 
 // ต้องเป็นแอดมินเท่านั้น
-if (empty($_SESSION['is_admin'])) {
-  header('Location: admin_login.php');
-  exit;
-}
+require_once 'auth_guard.php';
 
 // ตรวจ CSRF
 if (empty($_POST['csrf']) || $_POST['csrf'] !== ($_SESSION['csrf'] ?? '')) {
@@ -22,8 +19,9 @@ if ($id <= 0) {
 }
 
 try {
-  $pdo = new PDO('mysql:host=localhost;dbname=hbr_web_db;charset=utf8mb4', 'root', '');
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  require_once 'db.php';
+  $pdo = (new DB())->connect();
+
 
   // อ่านข้อมูลเดิมเพื่อรู้พาธรูป (ถ้ามี)
   $st = $pdo->prepare("SELECT image FROM seraphs WHERE id=?");

@@ -1,87 +1,105 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HBR Web Template</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HBR Web Template</title>
+
+  <!-- แยก link ให้ถูกต้อง -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ui_patch.css">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Utilities แบบ CSS ปกติ (รองรับ CDN mode) -->
+  <style>
+    .card-base{background:#fff;border-radius:16px;box-shadow:0 6px 18px rgba(17,17,26,.08);border:2px solid transparent}
+    .card-hover{transition:transform .2s, box-shadow .2s}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(17,17,26,.12)}
+    .chip-base{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem .75rem;border:1px solid #e5e7eb;border-radius:9999px;background:#fff;font-weight:800;font-size:.95rem}
+    .chip-active{border-color:#e63950;box-shadow:0 3px 10px rgba(230,57,80,.12)}
+    .grid-2{display:grid;gap:.75rem;grid-template-columns:1fr}
+    @media (min-width:768px){.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .grid-3{display:grid;gap:.75rem;grid-template-columns:1fr}
+    @media (min-width:640px){.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1024px){.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .grid-4{display:grid;gap:.75rem;grid-template-columns:1fr}
+    @media (min-width:640px){.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:768px){.grid-4{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media (min-width:1280px){.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .badge-ico{width:2.5rem;height:2.5rem;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}
+    .selected-ring{border:2px solid #e63950;box-shadow:0 6px 18px rgba(255,90,122,.18)}
+  </style>
 </head>
 
 <body>
-    <!-- Sidebar -->
-    <aside id="sidebar" class="sidebar" aria-label="แถบเมนูด้านข้าง">
-        <div class="sidebar-header">HBR</div>
-        <nav class="side-list" aria-label="เมนูย่อย">
-            <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
-            <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
-            <a class="side-item" href="#"><span class="ico">👥</span><span class="label">Team Comp</span></a>
-            <a class="side-item" href="#"><span class="ico">🏅</span><span class="label">ประดับ</span></a>
-            <hr style="margin:8px 0; border:0; border-top:1px solid rgba(255,255,255,0.3)">
-            <a class="side-item" href="admin_login.php" target="_blank">
-                <span class="ico">⚙️</span><span class="label">Dashboard</span>
-            </a>
-        </nav>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">HBR</div>
+    <nav class="side-list">
+      <a class="side-item" href="index.html"><span class="ico">🏠</span><span class="label">Home</span></a>
+      <a class="side-item" href="seraph.html"><span class="ico">👤</span><span class="label">Seraph</span></a>
+      <a class="side-item" href="tier_list.html"><span class="ico">📊</span><span class="label">Tier list</span></a>
+      <a class="side-item" href="team_comp.html"><span class="ico">👥</span><span class="label">Team Comp</span></a>
+      <a class="side-item" href="accessory.html"><span class="ico">💍</span><span class="label">ประดับ</span></a>
+      <a class="side-item" href="buffs.html"><span class="ico">✨</span><span class="label">บัพ/ดีบัพ</span></a>
+      <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.3)">
+      <a class="side-item" href="admin_login.php" target="_blank"><span class="ico">⚙️</span><span class="label">Dashboard</span></a>
+    </nav>
+  </aside>
 
-    </aside>
+  <!-- Scrim สำหรับปิดเมนูบนจอเล็ก -->
+  <div id="scrim" class="scrim" aria-hidden="true"></div>
 
-    <!-- Scrim สำหรับปิดเมนูบนจอเล็ก -->
-    <div id="scrim" class="scrim" aria-hidden="true"></div>
+  <!-- Topbar -->
+  <header class="topbar">
+    <button id="btnOpen" class="hamburger" aria-label="เปิดเมนู" aria-controls="sidebar" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
+      </svg>
+    </button>
 
-    <!-- Topbar -->
-    <header class="topbar">
-        <button id="btnOpen" class="hamburger" aria-label="เปิดเมนู" aria-controls="sidebar" aria-expanded="false">
-            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="currentColor" d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" />
-            </svg>
-        </button>
+    <div class="brand-inline text-[#e63950] font-black" aria-label="แบรนด์">HBR</div>
 
-        <div class="brand-inline" aria-label="แบรนด์">HBR</div>
+    <nav class="main-nav">
+      <a href="#home" class="nav-link active">HOME</a>
+    </nav>
 
-        <nav class="main-nav">
-            <a href="#home" class="nav-link active">HOME</a>
-        </nav>
+    <div class="social-links">
+      <a href="https://www.facebook.com/skyrim21130" target="_blank" aria-label="Facebook">
+        <img src="img/fb.png" alt="Facebook">
+      </a>
+      <a href="https://youtube.com/@hikarilmayav2?si=SJnSDMQdtgywF0jz" target="_blank" aria-label="YouTube">
+        <img src="img/ty.png" alt="YouTube">
+      </a>
+      <a href="https://x.com/HikariLMayV2" target="_blank" aria-label="X">
+        <img src="img/x.png" alt="X">
+      </a>
+    </div>
+  </header>
 
-        <div class="social-links">
-            <a href="https://www.facebook.com/skyrim21130" target="_blank" aria-label="Facebook">
-                <img src="img/fb.png" alt="Facebook">
-            </a>
-            <a href="https://youtube.com/@hikarilmayav2?si=SJnSDMQdtgywF0jz" target="_blank" aria-label="YouTube">
-                <img src="img/ty.png" alt="YouTube">
-            </a>
-            <a href="https://x.com/HikariLMayV2" target="_blank" aria-label="X">
-                <img src="img/x.png" alt="X">
-            </a>
-        </div>
-    </header>
+  <!-- Main -->
+  <main class="main" id="content">
+    <section id="home" class="hero hero-left">
+      <img class="hero-logo" src="img/Heaven_Burns_Red_Glow_logo.png" alt="Logo" />
+      <h1 class="hero-title">HEAVEN BURNS RED</h1>
+    </section>
 
-    <!-- Main -->
-    <main class="main" id="content">
-        <!-- เดิม: <section id="home" class="hero hero-single"> -->
-        <section id="home" class="hero hero-left">
-            <img class="hero-logo" src="img/Heaven_Burns_Red_Glow_logo.png" alt="Logo" />
-            <h1 class="hero-title">HEAVEN BURNS RED</h1>
-        </section>
+    <div class="container">
+      <section class="banner banner-full card-base">
+        <h1>ยินดีต้อนรับสู่</h1>
+        <p>Heaven Burns Red Data Center</p>
+        <img src="img/web_banner.jpg" alt="Web Banner" class="banner-img rounded-[16px] mt-2">
+      </section>
 
+      <section class="banner slider card-base" aria-roledescription="carousel" aria-label="Event Banner">
+        <h2>อีเวน และ กิจกรรมที่กำลังดำเนินอยู่...</h2>
+        <div id="track" class="track"></div>
+        <div class="dots" id="dots"></div>
+      </section>
+    </div>
+  </main>
 
-
-        <div class="container">
-            <section class="banner banner-full">
-                <h1>ยินดีต้อนรับสู่</h1>
-                <p>Heaven Burns Red Data Center</p>
-                <img src="img/web_banner.jpg" alt="Web Banner" class="banner-img">
-            </section>
-
-
-            <section class="banner slider" aria-roledescription="carousel" aria-label="Event Banner">
-                <h2>อีเวน และ กิจกรรมที่กำลังดำเนินอยู่...</h2>
-                <div id="track" class="track"></div>
-                <div class="dots" id="dots"></div>
-            </section>
-        </div>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
-
 </html>

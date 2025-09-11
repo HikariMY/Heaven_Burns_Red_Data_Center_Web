@@ -1,6 +1,7 @@
 /* =========================
    Admin UI – shared styles
    ========================= */
+   @import "tailwindcss";
 :root {
   --sb-w: 64px; /* sidebar width (collapsed) */
   --sb-w-open: 220px; /* sidebar width (expanded) */
