@@ -30,6 +30,15 @@
     @media (min-width:1280px){.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}}
     .badge-ico{width:2.5rem;height:2.5rem;object-fit:contain;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}
     .selected-ring{border:2px solid #e63950;box-shadow:0 6px 18px rgba(255,90,122,.18)}
+
+    /* เพิ่มสไตล์สไลด์ให้แน่ใจว่าทำงานได้ */
+    .slider .track{display:flex;gap:12px;overflow:hidden;scroll-behavior:smooth}
+    .slider .slide{min-width:100%;flex:0 0 100%}
+    .slider .dots{display:flex;gap:6px;justify-content:center;margin-top:8px}
+    .slider .dot{width:10px;height:10px;border-radius:999px;background:#e5e7eb;cursor:pointer;border:1px solid #d1d5db}
+    .slider .dot.active{background:#e63950;border-color:#e63950}
+    .banner .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#fee2e2;color:#991b1b;font-weight:900;font-size:.8rem}
+    .thumb{width:100%;aspect-ratio:16/9;object-fit:cover;background:#f3f4f6;border-radius:12px}
   </style>
 </head>
 
@@ -43,7 +52,10 @@
       <a class="side-item" href="team_comp.html"><span class="ico">👥</span><span class="label">Team Comp</span></a>
       <a class="side-item" href="accessory.html"><span class="ico">💍</span><span class="label">ประดับ</span></a>
       <a class="side-item" href="buffs.html"><span class="ico">✨</span><span class="label">บัพ/ดีบัพ</span></a>
+      <a class="side-item" href="news.html"><span class="ico">📰</span><span class="label">ข่าว</span></a>
+      <a class="side-item" href="guides.html"><span class="ico">📋</span><span class="label">ไกด์ผู้เล่น</span></a>
       <hr style="margin:8px 0;border:0;border-top:1px solid rgba(255,255,255,.3)">
+      <a class="side-item" href="guide_submit.php"><span class="ico">✍️</span><span class="label">เขียนไกด์</span></a>
       <a class="side-item" href="admin_login.php" target="_blank"><span class="ico">⚙️</span><span class="label">Dashboard</span></a>
     </nav>
   </aside>
@@ -94,8 +106,11 @@
 
       <section class="banner slider card-base" aria-roledescription="carousel" aria-label="Event Banner">
         <h2>อีเวน และ กิจกรรมที่กำลังดำเนินอยู่...</h2>
-        <div id="track" class="track"></div>
-        <div class="dots" id="dots"></div>
+        <div id="track" class="track" aria-live="polite"></div>
+        <div id="emptyOngoing" class="muted" style="display:none;margin-top:8px">
+          ตอนนี้ยังไม่มีอีเวนต์ที่กำลังดำเนินอยู่ — <a href="news.html" class="underline">ดูข่าวทั้งหมด</a>
+        </div>
+        <div class="dots" id="dots" role="tablist" aria-label="ตัวบ่งชี้สไลด์"></div>
       </section>
     </div>
   </main>

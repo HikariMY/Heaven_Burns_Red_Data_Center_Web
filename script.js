@@ -2,7 +2,7 @@
    Sidebar drawer (mobile)
 ========================= */
 const sidebar = document.getElementById("sidebar");
-const scrim = document.getElementById("scrim");
+const scrim   = document.getElementById("scrim");
 const btnOpen = document.getElementById("btnOpen");
 
 function openSide() {
@@ -24,101 +24,91 @@ document.addEventListener("keydown", (e) => {
 /* =========================
    Event Slider (from PHP)
 ========================= */
-const track = document.getElementById("track");
+const track   = document.getElementById("track");
 const dotsBox = document.getElementById("dots");
-
-async function loadEvents() {
-  try {
-    const res = await fetch("events.php", { cache: "no-store" });
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const data = await res.json();
-    return Array.isArray(data) ? data : [];
-  } catch (err) {
-    console.error("Load events failed:", err);
-    // fallback ให้มีอย่างน้อย 1 สไลด์เวลาทดสอบ
-    return [
-      {
-        id: 0,
-        title: "Sample Event",
-        desc: "ตัวอย่าง",
-        image: "img/event-sample.jpg",
-        start: "2025-09-01",
-        end: "2025-09-07",
-      },
-    ];
-  }
-}
+const emptyEl = document.getElementById("emptyOngoing"); // ถ้ามีในหน้า ให้แสดงเมื่อไม่มีอีเวนต์
 
 function formatDate(str) {
-  const d = new Date(str);
+  if (!str) return "";
+  const d = new Date(str + "T00:00:00");
   if (isNaN(d)) return "";
-  return d.toLocaleDateString("th-TH", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  return d.toLocaleDateString("th-TH", { day: "numeric", month: "short", year: "numeric" });
 }
 
 // เติมพาธให้รูป (รองรับชื่อไฟล์ล้วน)
 function fixPath(src) {
   if (!src) return "";
-  if (/^https?:\/\//i.test(src)) return src; // URL เต็ม
-  if (src.startsWith("/")) return src; // absolute path
+  if (/^https?:\/\//i.test(src)) return src;           // URL เต็ม
+  if (src.startsWith("/")) return src;                 // absolute path
   if (src.startsWith("uploads/") || src.startsWith("img/")) return src;
-  return "uploads/events/" + src; // สมมติอัปโหลดไว้ที่นี่
+  return "uploads/events/" + src.replace(/^\/+/, "");  // สมมติอัปโหลดไว้ที่นี่
 }
 
-// หลังจาก fetch แล้ว map คีย์ให้เข้ากับฝั่งเว็บเดิม
+// ปรับข้อมูล + กรองเฉพาะ “กำลังดำเนินอยู่”
 async function loadEvents() {
   try {
     const res = await fetch("events.php", { cache: "no-store" });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
-    // ปรับชื่อฟิลด์ให้แน่ใจว่าเราอ่านได้ทั้ง description_text/description/desc
-    return (Array.isArray(data) ? data : []).map((it) => ({
-      ...it,
+    const arr = Array.isArray(data) ? data : [];
+
+    // normalize ฟิลด์
+    const norm = arr.map((it) => ({
+      id: it.id,
+      title: it.title ?? "",
       desc: it.desc ?? it.description_text ?? it.description ?? "",
-      image: fixPath(it.image),
+      image: fixPath(it.image || ""),
+      start: it.start ?? it.start_date ?? "",
+      end:   it.end   ?? it.end_date   ?? "",
     }));
+
+    // วันนี้ (ตัดเวลา)
+    const today = new Date(); today.setHours(0,0,0,0);
+    const toDate = (s) => (s ? new Date(s + "T00:00:00") : null);
+
+    // เงื่อนไข ongoing: start <= today และ (ไม่มี end หรือ today <= end)
+    const ongoing = norm.filter(ev => {
+      const s = toDate(ev.start);
+      const e = toDate(ev.end);
+      if (s && today < s) return false;
+      if (e && today > e) return false;
+      if (!s && !e) return false; // ไม่มีกรอบเวลาเลย ไม่แสดง
+      return true;
+    });
+
+    // เรียงตามวันจบ (ใกล้หมดก่อน) ถ้าไม่มีวันจบ ให้อยูท้าย
+    ongoing.sort((a,b) => {
+      const ea = a.end ? new Date(a.end) : new Date("9999-12-31");
+      const eb = b.end ? new Date(b.end) : new Date("9999-12-31");
+      return ea - eb;
+    });
+
+    return ongoing;
   } catch (err) {
     console.error("Load events failed:", err);
-    return [
-      {
-        id: 0,
-        title: "Sample Event",
-        desc: "ตัวอย่าง",
-        image: fixPath("img/event-sample.jpg"),
-        start: "2025-09-01",
-        end: "2025-09-07",
-      },
-    ];
+    // fallback เวลาทดสอบ
+    return [{
+      id: 0,
+      title: "Sample Event",
+      desc: "ตัวอย่างอีเวนต์ (ทดสอบ)",
+      image: fixPath("img/event-sample.jpg"),
+      start: "2025-09-01",
+      end: "2025-09-07",
+    }];
   }
 }
 
 // ใช้ desc ที่เราจัดให้แน่นอนแล้ว + กันรูปแตก
 function slideHTML(ev) {
   const hasImg = !!ev.image;
+  const hasRange = ev.start || ev.end;
   return `
     <div class="slide">
       <div class="slide-inner">
-        ${
-          hasImg
-            ? `<img class="event-img" src="${ev.image}" alt="${
-                ev.title ?? ""
-              }" onerror="this.style.display='none'">`
-            : ""
-        }
+        ${hasImg ? `<img class="event-img" src="${ev.image}" alt="${ev.title ?? ""}" onerror="this.style.display='none'">` : ""}
         ${ev.title ? `<h3>${ev.title}</h3>` : ""}
         ${ev.desc ? `<p>${ev.desc}</p>` : ""}
-        ${
-          ev.start || ev.end
-            ? `<p class="event-time">
-          ${ev.start ? formatDate(ev.start) : ""}${
-                ev.start && ev.end ? " – " : ""
-              }${ev.end ? formatDate(ev.end) : ""}
-        </p>`
-            : ""
-        }
+        ${hasRange ? `<p class="event-time">${formatDate(ev.start)}${ev.start && ev.end ? " – " : ""}${formatDate(ev.end)}</p>` : ""}
       </div>
     </div>
   `;
@@ -129,6 +119,15 @@ async function initSlider() {
 
   const events = await loadEvents();
 
+  // ถ้าไม่มีอีเวนต์ที่ “กำลังดำเนินอยู่”
+  if (!events.length) {
+    track.innerHTML = "";
+    dotsBox.innerHTML = "";
+    if (emptyEl) emptyEl.style.display = "";
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = "none";
+
   // render slides
   track.innerHTML = events.map(slideHTML).join("");
   const slides = Array.from(track.children);
@@ -136,12 +135,7 @@ async function initSlider() {
 
   // dots
   dotsBox.innerHTML = slides
-    .map(
-      (_, i) =>
-        `<button class="dot${
-          i === 0 ? " is-active" : ""
-        }" aria-label="ไปสไลด์ ${i + 1}"></button>`
-    )
+    .map((_, i) => `<button class="dot${i === 0 ? " is-active" : ""}" aria-label="ไปสไลด์ ${i + 1}"></button>`)
     .join("");
   const dots = Array.from(dotsBox.children);
 
@@ -180,6 +174,7 @@ async function initSlider() {
   document.addEventListener("visibilitychange", () => {
     document.hidden ? stop() : start();
   });
+  window.addEventListener("resize", render); // ยึดตำแหน่งเวลา viewport เปลี่ยน
 
   render();
   start();
@@ -190,10 +185,9 @@ initSlider();
    Active nav on scroll
 ========================= */
 const sectionIds = ["home"];
-const sections = sectionIds
-  .map((id) => document.getElementById(id))
-  .filter(Boolean);
+const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
 const navLinks = Array.from(document.querySelectorAll(".main-nav .nav-link"));
+
 function linkTargetsToId(a) {
   const href = (a.getAttribute("href") || "").trim();
   if (href === "#") return "home";
@@ -212,9 +206,7 @@ function setActive() {
   for (const s of sections) {
     if (s.offsetTop <= y) current = s;
   }
-  navLinks.forEach((a) =>
-    a.classList.toggle("active", linkTargetsToId(a) === current.id)
-  );
+  navLinks.forEach((a) => a.classList.toggle("active", linkTargetsToId(a) === current.id));
 }
 window.addEventListener("scroll", setActive);
 setActive();

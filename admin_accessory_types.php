@@ -34,7 +34,7 @@ $types=$pdo->query("SELECT * FROM accessory_types ORDER BY id ASC")->fetchAll(PD
 <link rel="stylesheet" href="admin_theme.css">
 <body class="sb-hover">
     <!-- Admin Sidebar -->
-  <aside class="admin-sidebar">
+<aside class="admin-sidebar">
     <div class="side-head">HBR Admin</div>
     <div class="side-list">
       <a class="side-item" href="admin_seraphs.php"><span class="ico">👤</span><span class="label">Seraphs</span></a>
@@ -43,6 +43,9 @@ $types=$pdo->query("SELECT * FROM accessory_types ORDER BY id ASC")->fetchAll(PD
       <a class="side-item" href="admin_team_comps.php"><span class="ico">👥</span><span class="label">Team Comp</span></a>
       <a class="side-item" href="admin_accessories.php"><span class="ico">💍</span><span class="label">Accessories</span></a>
       <a class="side-item" href="admin_accessory_types.php"><span class="ico">🗂️</span><span class="label">Accessory Types</span></a>
+      <a class="side-item active" href="admin_buffs.php"><span class="ico">✨</span><span class="label">Buffs/Debuffs</span></a>
+      <a class="side-item" href="admin_news.php"><span class="ico">📰</span><span class="label">News</span></a>
+      <a class="side-item" href="admin_guides.php"><span class="ico">✍️</span><span class="label">Guides</span></a>
       <a class="side-item" href="logout.php"><span class="ico">⏻</span><span class="label">Logout</span></a>
     </div>
   </aside>

@@ -164,6 +164,8 @@ input[type=text], input[type=number], textarea, select{width:100%;padding:8px;bo
       <a class="side-item" href="admin_accessories.php"><span class="ico">💍</span><span class="label">Accessories</span></a>
       <a class="side-item" href="admin_accessory_types.php"><span class="ico">🗂️</span><span class="label">Accessory Types</span></a>
       <a class="side-item active" href="admin_buffs.php"><span class="ico">✨</span><span class="label">Buffs/Debuffs</span></a>
+      <a class="side-item" href="admin_news.php"><span class="ico">📰</span><span class="label">News</span></a>
+      <a class="side-item" href="admin_guides.php"><span class="ico">✍️</span><span class="label">Guides</span></a>
       <a class="side-item" href="logout.php"><span class="ico">⏻</span><span class="label">Logout</span></a>
     </div>
   </aside>
