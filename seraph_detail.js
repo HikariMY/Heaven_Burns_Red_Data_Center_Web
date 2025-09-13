@@ -102,14 +102,14 @@ function fillHeader(it) {
 function renderStats(it) {
   const host = qs("#dStats");
   const pairs = [
-    ["Dp", it.dp],
-    ["Hp", it.hp],
-    ["Str", it.str_val],
-    ["Dex", it.dex],
-    ["Pdef", it.pdef],
-    ["Mdef", it.mdef],
-    ["Int", it.int_stat],
-    ["Luck", it.luck],
+    ["DP:", it.dp],
+    ["HP:", it.hp],
+    ["STR(力):", it.str_val],
+    ["DEX(器用さ):", it.dex],
+    ["VIT(体力):", it.pdef],
+    ["SPR(精神):", it.mdef],
+    ["INT(知性):", it.int_stat],
+    ["LCK(運):", it.luck],
   ].filter(([, v]) => v !== null && v !== undefined && v !== "");
   host.innerHTML = pairs.length
     ? pairs.map(([k, v]) => `<div class="stat">${k} ${v}</div>`).join("")
